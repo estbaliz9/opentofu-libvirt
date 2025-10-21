@@ -30,7 +30,7 @@ resource "libvirt_domain" "server1" {
   memory = 1024
   vcpu   = 2
 
-
+ # Red 1: Red interna
   network_interface {
     network_id     = libvirt_network.nat-dhcp.id
     wait_for_lease = true
@@ -41,6 +41,12 @@ resource "libvirt_domain" "server1" {
     network_name   = "default"
     wait_for_lease = true
   }
+
+ # Red 3: Red creada por mí
+  network_interface {
+    network_id    = libvirt_network.nat2-dhcp.id
+    wait_for_lease = true
+ }
 
   disk { volume_id = libvirt_volume.server1-disk.id }
   # Segundo disco

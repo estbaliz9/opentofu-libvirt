@@ -23,7 +23,13 @@ resource "libvirt_volume" "disk-extra1" {
   size   = 1 * 1024 * 1024 * 1024 # 1 GB en bytes
 }
 
-
+# Disco extra 2
+resource "libvirt_volume" "disk-extra2" {
+  name = "server1-disk-extra2.qcow2"
+  pool = var.libvirt_pool_name
+  format = "qcow2"
+  size = 5 * 1024 * 1024 * 1024 # 5 GB en bytes
+}
 # Dominio (VM)
 resource "libvirt_domain" "server1" {
   name   = "server1"
@@ -38,7 +44,8 @@ resource "libvirt_domain" "server1" {
   disk { volume_id = libvirt_volume.server1-disk.id }
   # Segundo disco
   disk { volume_id = libvirt_volume.disk-extra1.id }
-  cloudinit = libvirt_cloudinit_disk.server1-cloudinit.id
+  disk { volume_id = libvirt_volume.disk-extra2.id }
+    cloudinit = libvirt_cloudinit_disk.server1-cloudinit.id
 
 }
 

@@ -17,6 +17,17 @@ resource "libvirt_network" "nat-dhcp" {
   autostart = true
 }
 
+resource "libvirt_network" "nat2-dhcp" {
+  name      = "nat2-dhcp"
+  mode      = "nat"
+  domain    = "example.com"
+  addresses = ["192.168.250.0/24"]
+  bridge    = "virbr12"
+  dhcp { enabled = true }
+  dns { enabled = true }
+  autostart = true
+}
+
 ##############################################
 # Red NAT sin DHCP
 ##############################################
